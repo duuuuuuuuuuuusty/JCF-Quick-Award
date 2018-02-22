@@ -1,0 +1,507 @@
+<style>
+  .qaButton {
+  float: right;
+  }
+  .qaDialogWrap {
+  border: 1px solid #d4d4d4;
+  background: rgba(255,255,255,.9);
+  width: 300px;
+  height: 60px;
+  position: absolute;
+  margin-left: 4px;
+  margin-top: -9px;
+  box-shadow: 4px 5px 6px -7px black;
+  transition: height .2s ease-in;
+  }
+  .qaHeader {
+  }
+  .qaHText {
+  text-align: center;
+  font-size: 20px;
+  font-variant: small-caps;
+  font-family: quicksand;
+  background: #d4d4d4;
+  color: #fff;
+  }
+  .qaBody {
+  padding: 5px;
+  height: 82%;
+  }
+  .qaTabRow {
+  display: flex;
+  }
+  .qaTab {
+  padding: 2px 6px;
+  background: #e7e4e4;
+  width: 100%;
+  text-align: center;
+  }
+  .qaFooter {
+  color: #bababa;
+  }
+  .qaSavedSubmit, .qaNewSubmit, .qaUSNExpand, .qaDialog label, .qaUSNConfirm, .qaMkTemplate {
+  cursor: pointer;
+  }
+  #qaSaveCheck, #qaCreationCheck, #qaUSNLEx, .btnHdn {
+  display: none;
+  }
+  #qaSaveCheck:checked ~ .qaDialogWrap .qaSCL, #qaCreationCheck:checked ~ .qaDialogWrap .qaCCL {
+  background: #abaaaa;
+  color: white;
+  }
+  #qaSaveCheck:checked ~ .qaDialogWrap, #qaCreationCheck:checked ~ .qaDialogWrap {
+  height: auto;
+  padding-bottom: 12px;
+  }
+  .qaUSNList {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity .2s ease-in;
+  }
+  #qaUSNLEx:checked ~ .qaUSNList {
+  visibility: visible;
+  opacity: 1;
+  }
+  #qaUSNLEx:checked + label {
+  background: rgba(0,0,0,.8);
+  color: #fff;
+  padding: 0 2px;
+  }
+  .qaBodySaved, .qaBodyNew {
+  height: 0;
+  overflow: hidden;
+  }
+  #qaSaveCheck:checked ~ .qaDialogWrap .qaBodySaved, #qaCreationCheck:checked ~ .qaDialogWrap .qaBodyNew {
+  height: auto;
+  }
+  #qaSaveCheck:checked ~ .qaDialogWrap .qaBodyNew, #qaCreationCheck:checked ~ .qaDialogWrap .qaBodySaved, #qaCreationCheck:not(:checked) ~ .qaDialogWrap .qaBodyNew, #qaSaveCheck:not(:checked) ~ .qaDialogWrap .qaBodySaved, #qaSaveCheck:not(:checked) + #qaCreationCheck:not(:checked) ~ .qaDialogWrap .qaBody {
+  display: none !important;
+  }
+  .qaSavedOptions {
+  width: calc(90% - 2px);
+  min-height: 50px;
+  max-height: 325px;
+  overflow: hidden;
+  resize: vertical;
+  margin: auto;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+  text-align: center;
+  }
+  .qaSavedSubmit, .qaNewSubmit {
+  width: 90%;
+  margin: auto;
+  text-align: center;
+  font-size: 24px;
+  font-family: quicksand;
+  font-variant: small-caps;
+  background: #f3f3f3;
+  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 6px;
+  }
+  .qaBodyNew, .qaLoginRow {
+  text-align: center;
+  }
+  .qaCreateInput {
+  display: inline-flex;
+  margin: 2px auto;
+  }
+  .qaCreateDesc {
+  width: 80%;
+  height: 40px;
+  resize: vertical;
+  }
+  .qaNewPreview {
+  margin: -2px auto 4px auto;
+  }
+  .qaPImg {
+  padding: 2px;
+  border: 1px solid #f2f2f2;
+  }
+  .qaCreateUSN {
+  width: 69%;
+  margin-left: 0;
+  }
+  .qaCreateDI {
+  width: 21%;
+  }
+  .qaCreateGB {
+  width: 14%;
+  }
+  .qaCreateAN {
+  width: 39%;
+  }
+  .qaUSNConfirm {
+  position: absolute;
+  margin-left: -15px;
+  margin-top: 2px;
+  color: gray;
+  }
+  .qaUSNExpand {
+  display: inline-block;
+  width: 4%;
+  }
+  .qaUSNCount {
+  display: inline-block;
+  width: 5%;
+  }
+  .qaUSNList {
+  position: absolute;
+  background: rgba(0,0,0,.8);
+  color: #fff;
+  padding: 2px 4px;
+  left: 90%;
+  top: 20%;
+  border-radius: 3px;
+  }
+  .qaUSNLItem {
+  display: table;
+  width: 100%;
+  }
+  .qaUSNLItem:hover {
+  background: rgba(255,255,255,.2);
+  }
+  .qaUSNList span {
+  display: table-cell;
+  cursor: default;
+  max-height: 16px;
+  text-overflow: ellipsis;
+  max-width: 50px;
+  overflow: hidden;
+  word-wrap: break-word;
+  white-space: nowrap;
+  }
+  .qaUSNLControl {
+  display: table-cell;
+  padding-left: 10px;
+  width: 10%;
+  }
+  .qaNewSubmit:active, .qaSavedSubmit:active {
+  background: #abaaaa;
+  color: #fff;
+  }
+  .qaLoggedOut .qaTabRow, .qaLoggedOut .qaBody {
+  display: none;
+  }
+  .qaLoggedIn .qaLoginUSN, .qaLoggedIn .qaLoginPW, .qaLoggedIn .qaLoginBtn {
+  display:none;
+  }
+  .qaLoggedIn .qaStatus {
+  display: block;
+  }
+  .qaMkTemplate {
+  background: #e4e4e4;
+  margin: auto;
+  width: 90%;
+  }
+  .qaStatus {
+  position: absolute;
+  right: 0;
+  padding: 0 2px;
+  }
+  .qaOpStatus {
+  position: absolute;
+  left: 0;
+  padding: 0 2px;
+  }
+  .qaSharedInput {
+  text-align: center;
+  }
+  .qaSavedOptions img {
+  margin: 2px;
+  cursor: pointer;
+  border: 1px dashed #cbcbcb;
+  padding: 1px;
+  max-width: 30px;
+  max-height: 30px;
+  }
+  .awTemplateSelected {
+  border: 1px solid #5aafde !important;
+  }
+</style>
+<div id="awHdnContainer" style="display:none;">
+  <div class="qaDialog qaLoggedOut">
+    <input id="qaSaveCheck" name="qaRadio" type="radio">
+    <input id="qaCreationCheck" name="qaRadio" type="radio">
+    <div class="qaDialogWrap">
+      <div class="qaHeader">
+        <div class="qaHText">Quick Awards<span title="Refresh Templates" style="position: absolute;right: 0;top: -4px;cursor: pointer;">↺</span></div>
+        <div class="qaTabRow">
+          <label for="qaSaveCheck" class="qaSCL qaTab">Saved Awards</label>
+          <label for="qaCreationCheck" class="qaCCL qaTab">Create New</label>
+        </div>
+        <div class="qaLoginRow">
+          <input class="qaLoginUSN" placeholder="Username" name="UserName" autocomplete="on" type="text" value="<!-- |name| -->">
+          <input class="qaLoginPW" placeholder="Password" name="PassWord" autocomplete="on" type="password">
+          <input class="qaLoginBtn" value="Login" type="button">
+        </div>
+      </div>
+      <div class="qaBody">
+        <div class="qaSharedInput">
+          <input placeholder="Username(s)" class="qaCreateInput qaCreateUSN" type="text">
+          <span class="qaUSNConfirm">✔</span>
+          <div class="qaUSNExpand">
+            <input type="checkbox" id="qaUSNLEx">
+            <label for="qaUSNLEx">☰</label>
+            <div class="qaUSNList">
+            </div>
+          </div>
+          <div class="qaUSNCount">(<span>0</span>)</div>
+        </div>
+        <div class="qaBodySaved">
+          <div class="qaSavedOptions"></div>
+          <div class="qaSavedSubmit">Submit</div>
+        </div>
+        <div class="qaBodyNew">
+          <input placeholder="Award Name" class="qaCreateInput qaCreateAN" type="text">
+          <input placeholder="Display Image" class="qaCreateInput qaCreateDI" type="text">
+          <input placeholder="Given By" class="qaCreateInput qaCreateGB" type="text">
+          <textarea placeholder="Description" class="qaCreateInput qaCreateDesc"></textarea>
+          <span class="qaDispCB qaCreateInput ">Display Award?<input class="qaCreateDA" type="checkbox"></span>
+          <div class="qaNewPreview" style="display:none;"><img class="qaPImg" src="" title=""></div>
+          <div class="qaNewSubmit">Submit</div>
+          <div class="qaMkTemplate" title="Save award as template for quick re-use">Save as Template</div>
+        </div>
+      </div>
+      <div class="qaFooter">
+        <div class="qaStatus">Awaiting authentication..</div>
+        <div class="qaOpStatus">No Operations</div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+// Quick awards, version sUpEr BeTa (seriously this is the first draft)
+  $('.qaActivate').click(function(){
+	// ahahaha I forgot that it'd be handy to close the dialog window after. hence:
+	$(this).addClass('btnHdn')
+	$('.qaDeActivate').removeClass('btnHdn')
+  	// QoL Settings
+  	var resetFormOnSubmit = true,
+  		autoAddFirstName = true,
+  	//Set profile field number in fieldNum and templates for saved templates
+  		fieldNum = 'field_19',
+  		templates = $('<div><!-- |field_19| --></div>').html(),
+  		authkey = '<!-- |auth_key| -->',
+  		ic = 0,
+  		extra = -1,
+  		adSess;
+  	if(localStorage.getItem('adInfo')) {
+  	  var a1 = JSON.parse(localStorage.getItem('adInfo'));
+  	  if(Date.now() - a1['time'] < 1800000) {
+  		adSess = a1['key'];
+  		$('.qaStatus').text('Stored Login Retrieved')
+  		$('.qaDialog').removeClass('qaLoggedOut').addClass('qaLoggedIn')
+  	  }
+  	}
+	$(this).parent('.qaButton').append($('#awHdnContainer .qaDialog'))
+	$('.qaCreateUSN').val($(this).parent('.qaButton').siblings('.normalname').text())
+	if(autoAddFirstName == true) {
+		_updateList();
+	}
+	$(document).on('click', '.qaDeActivate', function() {
+		$(this).addClass('btnHdn')
+		$('.qaActivate').removeClass('btnHdn')
+		$('.qaDialog').appendTo('#awHdnContainer')
+	})
+  	$(document).on('click', '.qaLoginBtn', function() {
+  		$.get("/admin.php?adsess=&login=yes", {
+              username: $('.qaLoginUSN').val(),
+              password: $('.qaLoginPW').val()
+          }, function(data,textstatus,request) {
+  			var rh = request.getResponseHeader('Content-length'),
+  				ds = data.substr(data.search("adsess=") + 7, 32);
+  			if(rh > 1000 && ds.match(/&login/g)) {
+  				$('.qaStatus').text('Authentication failed!')
+  			} else {
+  				$('.qaStatus').text('Login Successful')
+  				$('.qaDialog').removeClass('qaLoggedOut').addClass('qaLoggedIn')
+  				adSess = ds;
+  				var arr = {
+  				  key: adSess,
+  				  time: Date.now()
+  				};
+  				localStorage.setItem('adInfo', JSON.stringify(arr))
+  			}
+          });
+  	});
+  	$('.qaUSNConfirm').click(function(){
+  	  if($('.qaCreateUSN').val()) {
+  	    _updateList();
+  	  }
+  	})
+  	// I know, I know. For whatever reason, JQ wouldn't bind the event handler
+  	document.getElementsByClassName('qaCreateUSN')[0].addEventListener("keydown", function(event) {
+  	  if(event.keyCode === 13) {
+  		_updateList()
+  	  }
+  	});
+  	$('.qaCreateDI, .qaCreateDesc').focusout(function() {
+  	  if ($('.qaCreateDI').val() && $('.qaCreateDesc').val()) {
+  	    $('.qaPImg')
+  			.attr('src', $('.qaCreateDI').val())
+  			.attr('title', $('.qaCreateDesc').val())
+  			.parent('.qaNewPreview').css('display', 'block')
+  	  } else {
+  	    $('.qaNewPreview').css('display', 'none')
+  	  }
+  	})
+  	$(document).on('click', '.qaUSNLControl', function() {
+  	  $(this).parent('.qaUSNLItem').remove()
+  	  ic -= 1;
+  	  extra -= 1;
+  	  $('.qaUSNCount span').text(ic)
+  	  if($('.qaUSNLItem').length == 0) {
+  		$('.qaCreateUSN').val('').attr('placeholder', 'No users added')
+  		$('#qaUSNLEx').trigger('click')
+  	  } else {
+  	  $('.qaCreateUSN').val('').attr('placeholder', $('.qaUSNLItem:first span').text()+' and '+extra+' others')
+  	  }
+  	})
+  	
+  	$(document).on('click', '.qaNewSubmit', function() {
+  		$('.qaUSNList span').each(function(){
+  			var daC;
+  			if($('.qaCreateDA').attr('checked')){
+  				daC = 1
+  			} else {
+  				daC = 0
+  			}
+  			var awTable = {awUSER: $(this).text(), awNAME: $('.qaCreateAN').val(), awDI: $('.qaCreateDI').val(), awGB: $('.qaCreateGB').val(), awDESC: $('.qaCreateDesc').val(), awDA: daC},
+  				anLoc = awTable['awNAME'];
+  			_sendAward(awTable, anLoc)
+  		})
+  	})
+  
+  	$(document).on('click', '.qaMkTemplate', function() {
+  		var templArr = JSON.stringify({
+  			awNAME: $('.qaCreateAN').val(),
+  			awDI: $('.qaCreateDI').val(),
+  			awGB: $('.qaCreateGB').val(),
+  			awDESC: $('.qaCreateDesc').val(),
+  			awDA: $('.qaCreateDA').attr('checked')
+  		}),
+  			templArr = templArr+'\\n'+templates,
+  			fD = new FormData();
+  		fD.append('auth_key', authkey);
+  		fD.append('act', 'UserCP');
+  		fD.append('CODE', '21');
+  		fD.append(fieldNum, templArr);
+  		$.ajax({
+  			url: '/index.php?',
+  			data: fD,
+  			type: 'POST',
+  			contentType: false,
+  			processData: false,
+			success: function(data){
+				if($(data).find('#redirect-screen')){
+					templates = templArr;
+					$('.qaOpStatus').text('OK - Template made for '+$('.qaCreateAN').val())
+				} else {
+					$('.qaOpStatus').text('ERROR - Template not saved!')
+				}
+			},
+			error: function(errorThrown){
+				$('.qaOpStatus').text(errorThrown+' - Template not saved!')
+			}
+  		})
+  	})
+  	
+  	$(document).on('click', '.qaSCL', function() {
+  		_genTemplates(templates);
+  		$('.qaSCL').off();
+  	})
+  
+  	$(document).on('click', '.qaSavedOptions img', function() {
+  		$(this).toggleClass('awTemplateSelected')
+  	})
+  	
+  	$(document).on('click', '.qaSavedSubmit', function() {
+  		$('.qaUSNList span').each(function() {
+  			var usn = $(this).text();
+  			$('.awTemplateSelected').each(function() {
+  				var daC;
+  				if($(this).attr('awda')) {
+  					daC = 1;
+  				}else{
+  					daC = 0;
+  				}
+  				var t = $(this),
+  					awTable = {awUSER: usn, awNAME: t.attr('name'), awDI: t.attr('src'), awGB: t.attr('givenby'), awDESC: t.attr('title'), awDA: daC},
+  				anLoc = t.attr('name');
+  			_sendAward(awTable, anLoc)
+  			})
+  		})
+  	})
+  	
+  	$(document).on('click', '.qaHText span', function() {
+  		$.get("/index.php?act=UserCP&CODE=01").done(function(data){
+  			var templateData = $(data).find('#field_19 textarea').text();
+  			_genTemplates(templateData)
+  		})
+  	})
+  	
+  	function _sendAward(awardData, anLoc) {
+  		$.ajax({
+  			method: "GET",
+  			url: "/admin.php?&code=awardsadd&act=awards",
+  			timeout: 5000,
+  			data: {
+  				adsess: adSess,
+  				username: awardData['awUSER'],
+  				name: awardData['awNAME'],
+  				image: awardData['awDI'],
+  				givenby: awardData['awGB'],
+  				description: awardData['awDESC'],
+  				display: awardData['awDA']
+  			},
+  			error: function(errorThrown){
+  				$('.qaStatus').text('Error: ', errorThrown)
+  			},
+  			success: function(data) {
+				if ($(data).filter('#maintop').text() == 'Award Added') {
+					$('.qaOpStatus').text(anLoc+': OK')
+					_resetForm();
+				} else {
+					$('.qaOpStatus').text(anLoc+': failed!')
+				}
+  			}
+  		})
+  	}
+  	
+  	function _genTemplates(templateData) {
+  		$('.qaSavedOptions').empty()
+  		tSplit = templateData.split('\\n');
+  		for (var i = 0; i < tSplit.length; i++) {
+  			var t = JSON.parse(tSplit[i])
+  			$('<img class="awTemp'+i+'">').attr('name', t['awNAME'])
+                .attr('src', t['awDI'])
+                .attr('givenBy', t['awGB'])
+                .attr('title', t['awDESC'])
+                .attr('awDA', t['awDA'])
+                .appendTo('.qaSavedOptions')
+  		}
+  	}
+  	
+  	function _resetForm() {
+  		if (resetFormOnSubmit) {
+  			$('.qaUSNLControl').trigger('click')
+  			$('.qaCreateInput').val('')
+  			$('.qaNewPreview').css('display', 'none')
+  			$('.awTemplateSelected').removeClass('awTemplateSelected')
+  			$('#qaUSNLEx').prop('checked', false)
+  		}
+  	}
+  	function _updateList() {
+  		var n = $('.qaCreateUSN').val();
+  			ic += 1;
+  			extra += 1;
+  		$('.qaUSNCount span').text(ic)
+  		$('<div class="qaUSNLItem"><span>'+n+'</span><div class="qaUSNLControl">⌫</div></div>').appendTo('.qaUSNList')
+  		$('.qaCreateUSN').val('').attr('placeholder', n+' and '+extra+' others')
+  	}
+  }
+  )
+</script>
