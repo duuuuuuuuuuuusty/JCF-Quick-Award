@@ -281,6 +281,8 @@
   	// QoL Settings
   	var resetFormOnSubmit = true,
   		autoAddFirstName = true,
+		storeSessionID = true,
+		sessionTimeout = 30, //in minutes
   	//Set profile field number in fieldNum and templates for saved templates
   		fieldNum = 'field_19',
   		templates = $('<div><!-- |field_19| --></div>').html(),
@@ -288,9 +290,9 @@
   		ic = 0,
   		extra = -1,
   		adSess;
-  	if(localStorage.getItem('adInfo')) {
+  	if(localStorage.getItem('adInfo') && storeSessionID) {
   	  var a1 = JSON.parse(localStorage.getItem('adInfo'));
-  	  if(Date.now() - a1['time'] < 1800000) {
+  	  if(Date.now() - a1['time'] < (sessionTimeout*60000)) {
   		adSess = a1['key'];
   		$('.qaStatus').text('Stored Login Retrieved')
   		$('.qaDialog').removeClass('qaLoggedOut').addClass('qaLoggedIn')
@@ -319,11 +321,13 @@
   				$('.qaStatus').text('Login Successful')
   				$('.qaDialog').removeClass('qaLoggedOut').addClass('qaLoggedIn')
   				adSess = ds;
-  				var arr = {
-  				  key: adSess,
-  				  time: Date.now()
-  				};
-  				localStorage.setItem('adInfo', JSON.stringify(arr))
+				if(storeSessionID) {
+					var arr = {
+						key: adSess,
+						time: Date.now()
+					};
+					localStorage.setItem('adInfo', JSON.stringify(arr))
+				}
   			}
           });
   	});
