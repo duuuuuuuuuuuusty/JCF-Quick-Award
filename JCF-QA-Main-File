@@ -442,7 +442,7 @@
   	
   	$(document).on('click', '.qaHText span', function() {
   		$.get("/index.php?act=UserCP&CODE=01").done(function(data){
-  			var templateData = $(data).find('#field_19 textarea').text();
+  			var templateData = $(data).find('#'+fieldNum+' textarea').text();
   			_genTemplates(templateData)
   		})
   	})
