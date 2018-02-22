@@ -4,7 +4,7 @@ For JC Ink services
 Version v.01
 
 ## Installation
-Add the main file **JCF-QA-Main-File** to your wrapper footer, via include key. Install the activation button (or rebuild it, up to you) as a sibling to the username elements in the *post row* template, if you want it to auto-fill the first name. The username elements of a default template look like: *<span class='<!-- |name_css| -->'><!-- |name| --></span>*
+Add the main file **JCF-QA-Main-File** to your wrapper footer, via include key. Install the activation button (or rebuild it, up to you) as a sibling to the username elements in the *post row* template, if you want it to auto-fill the first name. The username elements of a default template look like: *<span class='<\!-- |name_css| -->'><\!-- |name| --></span>*
 
 Alternatively, you can drop it in as a sibling next to the username in your existing templates, and append the class *normalname* to the element the contains the username.
 
