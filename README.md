@@ -21,6 +21,8 @@ You can also choose to edit the following settings:
 ## Usage
 The script appends a menu enabling an admin to quickly hand out awards based off of saved templates, or by creating a new award on the page. The user must strike the enter key while focused on the username input field, or click the check mark, to register an extra username to be awarded. A list of awardees may be viewed by clicking the triple bar 'hamburger' icon to the right of the username input field, and usernames can be struck from the list by clicking the X'd arrow to the right of the name.
 
+Importantly, the status bar at the bottom of the dialog window updates when a connection is made, successful or otherwise. Keep an eye on it if you're not sure if anything is happening.
+
 ## Common Issues
 *Nothing happens when I hit submit*
 Make sure that there is at least one award recipient defined in the list. You can view a list by clicking the triple bar 'hamburger' icon to the right of the username input field.
