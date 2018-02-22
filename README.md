@@ -24,3 +24,6 @@ The script appends a menu enabling an admin to quickly hand out awards based off
 ## Common Issues
 *Nothing happens when I hit submit*
 Make sure that there is at least one award recipient defined in the list. You can view a list by clicking the triple bar 'hamburger' icon to the right of the username input field.
+
+*No award templates are being loaded*
+Click the refresh icon in the top right. If nothing further happens, check for saved data inside the profile field, and check the console for javascript errors.
