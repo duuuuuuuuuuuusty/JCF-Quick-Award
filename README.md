@@ -1,7 +1,9 @@
-# JCF Quick Award v.01
+# JCF Quick Award v.01 (Outdated)
 For JC Ink services
 
 Version v.01
+
+## Note: Highly recommend that, if you use this, you disable storeSessionId. It's easy to hijack an admin session with it on.
 
 ## Installation
 Add the main file **JCF-QA-Main-File** to your wrapper footer, via include key. Install the activation button (or rebuild it, up to you) as a sibling to the username elements in the *post row* template, if you want it to auto-fill the first name. The username elements of a default template look like: *<span class='\<\!-- |name_css| --\>'\>\<\!-- |name| --\>\<\/span>*
